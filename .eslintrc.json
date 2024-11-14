@@ -1,0 +1,10 @@
+{
+  "extends": [ "ts-standard-next", "plugin:tailwindcss/recommended" ],
+  "rules": {
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "import/newline-after-import": "off",
+    "@next/next/no-img-element": "off",
+    "@typescript-eslint/array-type": "off",
+    "tailwindcss/no-custom-classname": "off"
+  }
+}
