@@ -21,6 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { todaysDate } from '@/lib/utils'
 
 import { Button } from './ui/button'
 import { Input } from './ui/input'
@@ -31,18 +32,22 @@ export default function CreateExpense () {
   const { addExpenses } = useExpense()
   const [category, setCategory] = useState('')
 
+  const today = todaysDate()
+
   const handleAddExpense = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     const form = e.target as HTMLFormElement
     const amount = parseInt(form.amount.value)
     const description = form.description.value
+    const date = form.date.value
 
     addExpenses({
       id: Date.now(),
       amount,
       category,
       description,
+      date,
     })
 
     form.reset()
@@ -107,6 +112,18 @@ export default function CreateExpense () {
               id='description'
               className='col-span-3'
               name='description'
+            />
+          </div>
+          <div>
+            <Label htmlFor='date' className='text-right'>
+              Date
+            </Label>
+            <Input
+              type='date'
+              defaultValue={today}
+              id='date'
+              className='col-span-3'
+              name='date'
             />
           </div>
           <DialogFooter className='flex flex-row justify-end gap-2'>
