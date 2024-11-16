@@ -1,4 +1,8 @@
+'use client'
+
 import { DialogClose } from '@radix-ui/react-dialog'
+import { PlusCircle } from 'lucide-react'
+import { useState } from 'react'
 
 import {
   Dialog,
@@ -21,66 +25,99 @@ import {
 import { Button } from './ui/button'
 import { Input } from './ui/input'
 import { Label } from './ui/label'
+import { useExpense } from '../../context/Expenses'
 
 export default function CreateExpense () {
+  const { addExpenses } = useExpense()
+  const [category, setCategory] = useState('')
+
+  const handleAddExpense = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    const form = e.target as HTMLFormElement
+    const amount = parseInt(form.amount.value)
+    const description = form.description.value
+
+    addExpenses({
+      id: Date.now(),
+      amount,
+      category,
+      description,
+    })
+
+    form.reset()
+  }
+
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant='outline'>+</Button>
+        <Button>
+          <PlusCircle />
+          Add Expense
+        </Button>
       </DialogTrigger>
-      <DialogContent className='sm:max-w-[425px]'>
+      <DialogContent
+        aria-describedby='Add your expense.'
+        className='sm:max-w-[425px]'
+      >
         <DialogHeader>
           <DialogTitle>Add Expense</DialogTitle>
         </DialogHeader>
-        <div className='grid gap-4 py-4'>
+        <form onSubmit={handleAddExpense} className='grid gap-4 py-4'>
           <div>
-            <Label htmlFor='amout' className='text-right'>
+            <Label htmlFor='amount' className='text-right'>
               Amount
             </Label>
             <Input
-              id='amout'
+              id='amount'
+              name='amount'
               placeholder='0.00'
               type='number'
               className='col-span-3'
+              required
             />
           </div>
           <div>
-            <Label htmlFor='Category' className='text-right'>
-              Category
-            </Label>
-            <Select>
+            <Label className='text-right'>Category</Label>
+            <Select
+              required
+              onValueChange={(c) => {
+                setCategory(c)
+              }}
+            >
               <SelectTrigger>
-                <SelectValue placeholder='Select a fruit' />
+                <SelectValue placeholder='Select category' />
               </SelectTrigger>
               <SelectContent className='w-full'>
                 <SelectGroup>
-                  <SelectLabel>Fruits</SelectLabel>
-                  <SelectItem value='apple'>Apple</SelectItem>
-                  <SelectItem value='banana'>Banana</SelectItem>
-                  <SelectItem value='blueberry'>Blueberry</SelectItem>
-                  <SelectItem value='grapes'>Grapes</SelectItem>
-                  <SelectItem value='pineapple'>Pineapple</SelectItem>
+                  <SelectLabel>Categories</SelectLabel>
+                  <SelectItem value='food'>Food</SelectItem>
+                  <SelectItem value='rent'>Rent</SelectItem>
+                  <SelectItem value='car'>Car</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>
           </div>
           <div>
-            <Label htmlFor='Description' className='text-right'>
+            <Label htmlFor='description' className='text-right'>
               Description
             </Label>
             <Input
               placeholder='Enter description'
-              id='Description'
+              id='description'
               className='col-span-3'
+              name='description'
             />
           </div>
-        </div>
-        <DialogFooter className='flex flex-row justify-end gap-2'>
-          <DialogClose asChild>
-            <Button variant='outline'>Cancel</Button>
-          </DialogClose>
-          <Button type='submit'>Add Expense</Button>
-        </DialogFooter>
+          <DialogFooter className='flex flex-row justify-end gap-2'>
+            <DialogClose asChild>
+              <Button variant='outline'>Cancel</Button>
+            </DialogClose>
+            <DialogClose asChild>
+              <Button type='submit'>Add Expense</Button>
+            </DialogClose>
+          </DialogFooter>
+        </form>
       </DialogContent>
     </Dialog>
   )

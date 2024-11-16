@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply bg-blue-700
+  background: #f9f9f9;
 }
 
 @layer base {
