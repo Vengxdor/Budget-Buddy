@@ -1,8 +1,10 @@
 'use client'
 
+import { formatedDate } from '@/lib/utils'
+
 import { useExpense } from '../../context/Expenses'
 
-export default function Transations () {
+export default function Expenses () {
   const { expenses } = useExpense()
 
   return (
@@ -16,7 +18,8 @@ export default function Transations () {
                 <div>
                   <p className='text-lg'>{expense.description}</p>
                   <div className='opacity-60'>
-                    <span>{expense.category}</span> - <span>Nov 15, 2024</span>
+                    <span>{expense.category}</span> •{' '}
+                    <span>{formatedDate(expense.date)}</span>
                   </div>
                 </div>
                 <span className='text-red-500'>- ${expense.amount}</span>
