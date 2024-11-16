@@ -9,6 +9,23 @@ type ContextType = {
   addExpenses: (expense: Expense) => void
 }
 
+const defaultExpense: Expense[] = [
+  {
+    id: 1731776006070,
+    amount: 60,
+    category: 'food',
+    description: 'We went out for eating',
+    date: '2024-11-16',
+  },
+  {
+    id: 1731776006071,
+    amount: 1000,
+    category: 'rent',
+    description: '',
+    date: '2024-11-15',
+  },
+]
+
 const ExpensesContext = createContext<ContextType | null>(null)
 
 export function ExpensesContextProvider ({
@@ -16,7 +33,7 @@ export function ExpensesContextProvider ({
 }: {
   children: React.ReactNode
 }) {
-  const [expenses, setExpenses] = useState<Expense[] | []>([])
+  const [expenses, setExpenses] = useState<Expense[] | []>(defaultExpense)
 
   const addExpenses = (expense: Expense) => {
     setExpenses((prev) => {
