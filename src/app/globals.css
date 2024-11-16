@@ -3,10 +3,7 @@
 @tailwind utilities;
 
 body {
-  color-scheme: dark;
-  color: white;
-
-  @apply bg-cyan-700
+  @apply bg-blue-700
 }
 
 @layer base {
