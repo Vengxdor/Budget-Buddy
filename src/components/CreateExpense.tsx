@@ -21,6 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { EXPENSE_CATEGORIES } from '@/lib/constants'
 import { todaysDate } from '@/lib/utils'
 
 import { Button } from './ui/button'
@@ -96,9 +97,11 @@ export default function CreateExpense () {
               <SelectContent className='w-full'>
                 <SelectGroup>
                   <SelectLabel>Categories</SelectLabel>
-                  <SelectItem value='food'>Food</SelectItem>
-                  <SelectItem value='rent'>Rent</SelectItem>
-                  <SelectItem value='car'>Car</SelectItem>
+                  {EXPENSE_CATEGORIES.map(category => (
+                    <SelectItem key={category.label} value={category.value}>
+                      {category.label}
+                    </SelectItem>
+                  ))}
                 </SelectGroup>
               </SelectContent>
             </Select>
