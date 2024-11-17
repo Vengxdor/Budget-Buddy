@@ -26,12 +26,12 @@ export default function ExpensesCategories () {
   })).filter(category => category.value > 0)
 
   return (
-    <Card className='p-6'>
+    <Card className='h-[400px] p-6'>
       <div className='mb-4 flex items-center gap-2'>
         {/* <PieChart className='size-4' /> */}
-        <h3 className='font-semibold'>Expenses by Category</h3>
+        <h3 className='text-xl font-semibold'>Expenses by Category</h3>
       </div>
-      <div className='h-[200px]'>
+      <div className='h-[300px]'>
         <ResponsiveContainer width='100%' height='100%'>
           <RechartsPieChart>
             <Pie

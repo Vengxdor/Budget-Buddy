@@ -36,7 +36,7 @@ export default function ExpenseChart () {
   }))
 
   return (
-    <Card className='min-h-[360px] bg-white p-4'>
+    <Card className='h-[360px] bg-white p-4 md:h-[400px] '>
       <h2 className='mb-4 text-xl font-semibold'>Daily Expenses</h2>
       <ResponsiveContainer className='max-h-[300px]' width='100%' height='100%'>
         <BarChart
@@ -57,7 +57,7 @@ export default function ExpenseChart () {
           <Bar
             dataKey='amount'
             fill='#FF0000'
-            activeBar={<Rectangle fill='#8884d8' />}
+            activeBar={<Rectangle fill='#ff000099' />}
           />
         </BarChart>
       </ResponsiveContainer>

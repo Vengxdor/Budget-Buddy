@@ -10,10 +10,12 @@ export default function Home () {
   return (
     <ExpensesContextProvider>
       <Header />
-      <main className='mx-auto grid w-11/12 gap-3 pt-4'>
-        <TotalExpense />
-        <ExpenseChart />
-        <ExpensesCategories />
+      <main className='mx-auto grid w-11/12 pt-4'>
+        <div className='mb-3 grid gap-3 md:grid-cols-2 lg:grid-cols-3'>
+          <TotalExpense />
+          <ExpenseChart />
+          <ExpensesCategories />
+        </div>
         <Expenses />
       </main>
     </ExpensesContextProvider>

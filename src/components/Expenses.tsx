@@ -22,9 +22,9 @@ export default function Expenses () {
     <section className='rounded-lg  text-black'>
       <Card className='p-4'>
         <h2 className='mb-4 text-xl font-semibold'>Recent Expenses</h2>
-        <ul className='flex h-[400px] flex-col gap-10 rounded-[inherit] border p-6'>
+        <ul className='flex h-[400px] flex-col gap-3 rounded-[inherit] border p-4'>
           {sortExpensesByDate(expenses).map(expense => (
-            <li key={expense.id} className='flex w-full'>
+            <li key={expense.id} className='flex w-full rounded-[inherit] p-3 px-5 hover:bg-gray-50'>
               <div className='flex w-full  items-center justify-between'>
                 <div>
                   <p className='text-lg'>{expense.description}</p>
@@ -33,7 +33,9 @@ export default function Expenses () {
                     <span>{formatedDate(expense.date)}</span>
                   </div>
                 </div>
-                <span className='text-red-500'>- ${expense.amount}</span>
+                <span className='font-semibold text-red-500'>
+                  - ${expense.amount}
+                </span>
               </div>
             </li>
           ))}
