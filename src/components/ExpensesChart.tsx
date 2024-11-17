@@ -35,8 +35,6 @@ export default function ExpenseChart () {
       .reduce((sum, expense) => sum + expense.amount, 0),
   }))
 
-  console.log(lastDays)
-
   return (
     <Card className='min-h-[360px] bg-white p-4'>
       <h2 className='mb-4 text-xl font-semibold'>Daily Expenses</h2>
