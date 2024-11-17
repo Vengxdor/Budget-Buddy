@@ -5,15 +5,25 @@ import { formatedDate } from '@/lib/utils'
 import { Card } from './ui/card'
 import { useExpense } from '../../context/Expenses'
 
+import type { Expense } from '../../types'
+
 export default function Expenses () {
   const { expenses } = useExpense()
+
+  const sortExpensesByDate = (expenses: Expense[]) => {
+    return expenses.sort(
+      (a, b) =>
+        parseInt(b.date.split('-').join(''))
+        - parseInt(a.date.split('-').join('')),
+    )
+  }
 
   return (
     <section className='rounded-lg  text-black'>
       <Card className='p-4'>
         <h2 className='mb-4 text-xl font-semibold'>Recent Expenses</h2>
         <ul className='flex h-[400px] flex-col gap-10 rounded-[inherit] border p-6'>
-          {expenses.map(expense => (
+          {sortExpensesByDate(expenses).map(expense => (
             <li key={expense.id} className='flex w-full'>
               <div className='flex w-full  items-center justify-between'>
                 <div>
