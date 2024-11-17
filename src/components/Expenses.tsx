@@ -1,9 +1,9 @@
 'use client'
 
+import { useExpense } from '@/context/Expenses'
 import { formatedDate } from '@/lib/utils'
 
 import { Card } from './ui/card'
-import { useExpense } from '../../context/Expenses'
 
 import type { Expense } from '../../types'
 
@@ -24,7 +24,10 @@ export default function Expenses () {
         <h2 className='mb-4 text-xl font-semibold'>Recent Expenses</h2>
         <ul className='flex h-[400px] flex-col gap-3 rounded-[inherit] border p-4'>
           {sortExpensesByDate(expenses).map(expense => (
-            <li key={expense.id} className='flex w-full rounded-[inherit] p-3 px-5 hover:bg-gray-50'>
+            <li
+              key={expense.id}
+              className='flex w-full rounded-[inherit] p-3 px-5 hover:bg-gray-50'
+            >
               <div className='flex w-full  items-center justify-between'>
                 <div>
                   <p className='text-lg'>{expense.description}</p>

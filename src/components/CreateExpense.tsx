@@ -21,13 +21,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { useExpense } from '@/context/Expenses'
 import { EXPENSE_CATEGORIES } from '@/lib/constants'
 import { todaysDate } from '@/lib/utils'
 
 import { Button } from './ui/button'
 import { Input } from './ui/input'
 import { Label } from './ui/label'
-import { useExpense } from '../../context/Expenses'
 
 export default function CreateExpense () {
   const { addExpenses } = useExpense()

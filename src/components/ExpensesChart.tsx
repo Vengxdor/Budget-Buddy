@@ -12,10 +12,10 @@ import {
   ResponsiveContainer,
 } from 'recharts'
 
+import { useExpense } from '@/context/Expenses'
 import { formatedDate } from '@/lib/utils'
 
 import { Card } from './ui/card'
-import { useExpense } from '../../context/Expenses'
 
 export default function ExpenseChart () {
   const { expenses } = useExpense()

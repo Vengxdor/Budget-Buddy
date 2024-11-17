@@ -1,7 +1,8 @@
 'use client'
 
+import { useExpense } from '@/context/Expenses'
+
 import { Card } from './ui/card'
-import { useExpense } from '../../context/Expenses'
 
 export default function TotalExpense () {
   const { expenses } = useExpense()

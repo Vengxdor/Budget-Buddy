@@ -9,10 +9,10 @@ import {
   Tooltip,
 } from 'recharts'
 
+import { useExpense } from '@/context/Expenses'
 import { EXPENSE_CATEGORIES } from '@/lib/constants'
 
 import { Card } from './ui/card'
-import { useExpense } from '../../context/Expenses'
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042']
 
