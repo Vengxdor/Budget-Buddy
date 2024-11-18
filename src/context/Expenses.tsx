@@ -1,21 +1,25 @@
 'use client'
 
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 
-import type { Expense } from '../types'
+import { auth } from '@/firebase'
+import { Expense } from '@/models/expense'
+
+import type { ExpenseType } from '../../types'
 
 type ContextType = {
-  expenses: Expense[]
-  addExpenses: (expense: Expense) => void
+  expenses: ExpenseType[]
+  addExpenses: (expense: ExpenseType) => void
 }
 
-const defaultExpense: Expense[] = [
+const defaultExpense: ExpenseType[] = [
   {
     id: 1731776006070,
     amount: 60,
     category: 'food',
     description: 'We went out for eating',
     date: '2024-11-16',
+    uid: 'qn7YCmY76bPoBaZJPb4qKWQQUIC3',
   },
   {
     id: 1731776006071,
@@ -23,6 +27,7 @@ const defaultExpense: Expense[] = [
     category: 'rent',
     description: '',
     date: '2024-11-15',
+    uid: 'qn7YCmY76bPoBaZJPb4qKWQQUIC3',
   },
 ]
 
@@ -33,9 +38,24 @@ export function ExpensesContextProvider ({
 }: {
   children: React.ReactNode
 }) {
-  const [expenses, setExpenses] = useState<Expense[] | []>(defaultExpense)
+  const [expenses, setExpenses] = useState<ExpenseType[] | []>(defaultExpense)
 
-  const addExpenses = (expense: Expense) => {
+  useEffect(() => {
+    async function getExpenses () {
+      const user = auth.currentUser
+
+      if (!user) return
+      const storageExpenses = await Expense.GetExpenses(user?.uid)
+
+      console.log(storageExpenses)
+    }
+
+    getExpenses().catch((error) => {
+      console.error(error)
+    })
+  }, [])
+
+  const addExpenses = (expense: ExpenseType) => {
     setExpenses((prev) => {
       return [...prev, expense]
     })

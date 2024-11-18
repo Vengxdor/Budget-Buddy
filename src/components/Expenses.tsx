@@ -5,12 +5,12 @@ import { formatedDate } from '@/lib/utils'
 
 import { Card } from './ui/card'
 
-import type { Expense } from '../../types'
+import type { ExpenseType } from '../../types'
 
 export default function Expenses () {
   const { expenses } = useExpense()
 
-  const sortExpensesByDate = (expenses: Expense[]) => {
+  const sortExpensesByDate = (expenses: ExpenseType[]) => {
     return expenses.sort(
       (a, b) =>
         parseInt(b.date.split('-').join(''))
