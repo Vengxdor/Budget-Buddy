@@ -1,6 +1,8 @@
 import localFont from 'next/font/local'
+import { Toaster } from 'sonner'
 
 import type { Metadata } from 'next'
+
 import './globals.css'
 
 const geistSans = localFont({
@@ -16,7 +18,8 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: 'Budget Buddy',
-  description: 'Budget Buddy is your go-to tool for managing expenses and keeping your finances on track.',
+  description:
+    'Budget Buddy is your go-to tool for managing expenses and keeping your finances on track.',
 }
 
 export default function RootLayout ({
@@ -30,6 +33,7 @@ export default function RootLayout ({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
+        <Toaster richColors />
       </body>
     </html>
   )
