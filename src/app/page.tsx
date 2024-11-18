@@ -3,10 +3,10 @@
 import { Wallet } from 'lucide-react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 
+import Home from '@/components/Home'
 import { LoginButton } from '@/components/ui/LoginButton'
 import { auth } from '@/firebase'
 
-import Home from './home/page'
 
 export default function Login () {
   const [user, loading, error] = useAuthState(auth)
@@ -28,11 +28,11 @@ export default function Login () {
     )
   }
 
-  if (user !== null) {
+  if (user) {
     return (
       <>
         {!!loading && <h3>Loading...</h3>}
-        <Home />
+        <Home user={user} />
       </>
     )
   }
