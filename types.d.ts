@@ -9,3 +9,9 @@ export type Expense = {
   description: string
   date: Date
 }
+
+export type User = {
+  displayName: string | null
+  uid: string
+  image?: string | null
+}

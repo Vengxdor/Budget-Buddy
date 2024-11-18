@@ -13,27 +13,28 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import { auth } from '@/firebase'
+import { Expense } from '@/models/expense'
+
+import type { User } from '../../../types'
 
 export function LoginButton () {
-  const handleGoogle = async () => {
+  const handleSignIn = async (provider: GoogleAuthProvider | GithubAuthProvider) => {
     try {
-      const provider = new GoogleAuthProvider()
-
       await signInWithPopup(auth, provider)
+      const user = auth.currentUser
+
+      if (!user) return
+
+      const newUser: User = {
+        displayName: user.displayName,
+        uid: user?.uid,
+        image: user?.photoURL,
+      }
+
+      await Expense.CreateUser(newUser)
     } catch (error) {
       toast.error('There has been an error while login. Please try again.')
 
-      console.error(error)
-    }
-  }
-
-  const handleGithub = async () => {
-    try {
-      const provider = new GithubAuthProvider()
-
-      await signInWithPopup(auth, provider)
-    } catch (error) {
-      toast.error('There has been an error while login. Please try again.')
       console.error(error)
     }
   }
@@ -49,10 +50,12 @@ export function LoginButton () {
           <DialogDescription>Login</DialogDescription>
         </DialogHeader>
         <div className='flex flex-col gap-2'>
-          <Button onClick={handleGoogle} variant='outline'>
+          <Button onClick={async () => handleSignIn(new GoogleAuthProvider())} variant='outline'>
             Login with google
           </Button>
-          <Button onClick={handleGithub} variant='outline'>Login with github</Button>
+          <Button onClick={async () => handleSignIn(new GithubAuthProvider())} variant='outline'>
+            Login with github
+          </Button>
         </div>
         <DialogFooter className='flex-row justify-end gap-2'>
           <DialogClose asChild>
