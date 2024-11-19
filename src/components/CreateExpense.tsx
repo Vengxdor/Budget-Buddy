@@ -22,12 +22,16 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { useExpense } from '@/context/Expenses'
+import { auth } from '@/firebase'
 import { EXPENSE_CATEGORIES } from '@/lib/constants'
 import { todaysDate } from '@/lib/utils'
+import { Expense } from '@/models/expense'
 
 import { Button } from './ui/button'
 import { Input } from './ui/input'
 import { Label } from './ui/label'
+
+import type { ExpenseType } from '../../types'
 
 export default function CreateExpense () {
   const { addExpenses } = useExpense()
@@ -35,7 +39,9 @@ export default function CreateExpense () {
 
   const today = todaysDate()
 
-  const handleAddExpense = (e: React.FormEvent<HTMLFormElement>) => {
+  const user = auth.currentUser
+
+  const handleAddExpense = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     const form = e.target as HTMLFormElement
@@ -43,13 +49,21 @@ export default function CreateExpense () {
     const description = form.description.value
     const date = form.date.value
 
-    addExpenses({
+    if (!user?.uid) return
+
+    const expense: ExpenseType = {
       id: Date.now(),
       amount,
       category,
       description,
       date,
-    })
+      uid: user.uid,
+    }
+
+    console.log(expense)
+
+    await Expense.CreateExpense(expense)
+    addExpenses(expense)
 
     form.reset()
   }

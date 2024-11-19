@@ -12,24 +12,6 @@ type ContextType = {
   addExpenses: (expense: ExpenseType) => void
 }
 
-const defaultExpense: ExpenseType[] = [
-  {
-    id: 1731776006070,
-    amount: 60,
-    category: 'food',
-    description: 'We went out for eating',
-    date: '2024-11-16',
-    uid: 'qn7YCmY76bPoBaZJPb4qKWQQUIC3',
-  },
-  {
-    id: 1731776006071,
-    amount: 1000,
-    category: 'rent',
-    description: '',
-    date: '2024-11-15',
-    uid: 'qn7YCmY76bPoBaZJPb4qKWQQUIC3',
-  },
-]
 
 const ExpensesContext = createContext<ContextType | null>(null)
 
@@ -38,7 +20,7 @@ export function ExpensesContextProvider ({
 }: {
   children: React.ReactNode
 }) {
-  const [expenses, setExpenses] = useState<ExpenseType[] | []>(defaultExpense)
+  const [expenses, setExpenses] = useState<ExpenseType[] | []>([])
 
   useEffect(() => {
     async function getExpenses () {
@@ -47,7 +29,9 @@ export function ExpensesContextProvider ({
       if (!user) return
       const storageExpenses = await Expense.GetExpenses(user?.uid)
 
-      console.log(storageExpenses)
+      if (!storageExpenses) return []
+
+      setExpenses(storageExpenses)
     }
 
     getExpenses().catch((error) => {
