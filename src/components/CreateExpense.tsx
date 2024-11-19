@@ -60,8 +60,6 @@ export default function CreateExpense () {
       uid: user.uid,
     }
 
-    console.log(expense)
-
     await Expense.CreateExpense(expense)
     addExpenses(expense)
 
