@@ -19,8 +19,8 @@ export default function Header () {
             <Ellipsis />
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <SignOut />
             <DeleteExpense />
+            <SignOut />
           </DropdownMenuContent>
         </DropdownMenu>
         <CreateExpense />
