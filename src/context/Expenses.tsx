@@ -1,17 +1,17 @@
 'use client'
 
-import { createContext, useContext, useEffect, useState } from 'react'
+import { collection, query, where } from 'firebase/firestore'
+import { createContext, useContext } from 'react'
+import { useCollectionData } from 'react-firebase-hooks/firestore'
 
-import { auth } from '@/firebase'
-import { Expense } from '@/models/expense'
+import { auth, db } from '@/firebase'
 
 import type { ExpenseType } from '../../types'
+import type { DocumentData } from 'firebase/firestore'
 
 type ContextType = {
   expenses: ExpenseType[]
-  addExpenses: (expense: ExpenseType) => void
 }
-
 
 const ExpensesContext = createContext<ContextType | null>(null)
 
@@ -20,33 +20,25 @@ export function ExpensesContextProvider ({
 }: {
   children: React.ReactNode
 }) {
-  const [expenses, setExpenses] = useState<ExpenseType[] | []>([])
+  const user = auth.currentUser
+  const expensesRef = collection(db, 'expenses')
+  const q = query(
+    expensesRef,
+    where('uid', '==', user?.uid),
+  )
 
-  useEffect(() => {
-    async function getExpenses () {
-      const user = auth.currentUser
+  const [expense] = useCollectionData(q)
 
-      if (!user) return
-      const storageExpenses = await Expense.GetExpenses(user?.uid)
+  const isExpenses = expense ?? []
 
-      if (!storageExpenses) return []
-
-      setExpenses(storageExpenses)
-    }
-
-    getExpenses().catch((error) => {
-      console.error(error)
-    })
-  }, [])
-
-  const addExpenses = (expense: ExpenseType) => {
-    setExpenses((prev) => {
-      return [...prev, expense]
-    })
+  const sortExpensesByDate = (expenses: DocumentData[]) => {
+    return expenses.sort((a, b) => b.id - a.id) as ExpenseType[]
   }
 
+  const expenses = sortExpensesByDate(isExpenses)
+
   return (
-    <ExpensesContext.Provider value={{ expenses, addExpenses }}>
+    <ExpensesContext.Provider value={{ expenses }}>
       {children}
     </ExpensesContext.Provider>
   )
