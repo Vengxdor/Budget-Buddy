@@ -44,7 +44,7 @@ export default function ExpensesCategories () {
               dataKey='value'
               label={({ name, value }) => `${name}: $${value.toFixed(2)}`}
             >
-              {expensesByCategory.map((entry, index) => (
+              {expensesByCategory.map((_, index) => (
                 <Cell
                   key={`cell-${index}`}
                   fill={COLORS[index % COLORS.length]}
