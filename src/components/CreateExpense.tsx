@@ -21,7 +21,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { useExpense } from '@/context/Expenses'
 import { auth } from '@/firebase'
 import { EXPENSE_CATEGORIES } from '@/lib/constants'
 import { todaysDate } from '@/lib/utils'
@@ -34,7 +33,6 @@ import { Label } from './ui/label'
 import type { ExpenseType } from '../../types'
 
 export default function CreateExpense () {
-  const { addExpenses } = useExpense()
   const [category, setCategory] = useState('')
 
   const today = todaysDate()
@@ -61,7 +59,6 @@ export default function CreateExpense () {
     }
 
     await Expense.CreateExpense(expense)
-    addExpenses(expense)
 
     form.reset()
   }
