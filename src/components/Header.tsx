@@ -3,6 +3,7 @@ import { Ellipsis, Wallet } from 'lucide-react'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 
 import CreateExpense from './CreateExpense'
+import DeleteExpense from './DeleteExpense'
 import SignOut from './SignOut'
 
 export default function Header () {
@@ -19,6 +20,7 @@ export default function Header () {
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <SignOut />
+            <DeleteExpense />
           </DropdownMenuContent>
         </DropdownMenu>
         <CreateExpense />
