@@ -66,7 +66,7 @@ export default function CreateExpense () {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>
+        <Button className='create-expense-btn'>
           <PlusCircle />
           Add Expense
         </Button>

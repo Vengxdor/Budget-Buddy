@@ -34,3 +34,16 @@ export const getPartOfDay = () => {
 
   return 'Good night'
 }
+
+
+export function isFirstVisit () {
+  const hasVisited = document.cookie.split('; ').find(row => row.startsWith('visited='))
+
+  if (!hasVisited) {
+    document.cookie = 'visited=true; path=/; max-age=31536000' // 1 year
+
+    return true
+  }
+
+  return false
+}

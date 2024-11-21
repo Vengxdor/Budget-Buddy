@@ -12,7 +12,7 @@ export default function Expenses () {
     <section className='rounded-lg  text-black'>
       <Card className='p-4'>
         <h2 className='mb-4 text-xl font-semibold'>Recent Expenses</h2>
-        <ul className='flex h-[400px] flex-col gap-3 overflow-x-auto rounded-[inherit] border p-4'>
+        <ul className='expenses-history flex h-[400px] flex-col gap-3 overflow-x-auto rounded-[inherit] border p-4'>
           {expenses.map(expense => (
             <li
               key={expense.id}
