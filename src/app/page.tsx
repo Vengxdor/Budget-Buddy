@@ -1,12 +1,11 @@
 'use client'
 
-import { Wallet } from 'lucide-react'
 import { useEffect } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 
 import { startDrive } from '@/components/driver'
 import Home from '@/components/Home'
-import { LoginButton } from '@/components/ui/LoginButton'
+import Landing from '@/components/Landing'
 import { auth } from '@/firebase'
 import { isFirstVisit } from '@/lib/utils'
 
@@ -17,7 +16,6 @@ export default function Login () {
     if (user && isFirstVisit()) startDrive()
   }, [user])
 
-
   if (error) {
     // Todo: create an error component
     return <h2>There has been an error please try reloading</h2>
@@ -25,11 +23,7 @@ export default function Login () {
 
   if (user === null && !loading) {
     return (
-      <div className='flex items-center gap-2'>
-        <Wallet className='size-12' />
-        <h1 className='text-3xl font-bold'>Budget Buddy</h1>
-        <LoginButton />
-      </div>
+      <Landing />
     )
   }
 
