@@ -71,3 +71,12 @@ body {
   }
 }
 
+.expense-summarize {
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto;
+}
+
+
+.expenses-history {
+  grid-column: 1 / -1; /* Spans all columns */
+}
