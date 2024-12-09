@@ -17,7 +17,6 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
@@ -28,7 +27,6 @@ import { Expense } from '@/models/expense'
 
 import { Button } from './ui/button'
 import { Input } from './ui/input'
-import { Label } from './ui/label'
 
 import type { ExpenseType } from '../../types'
 
@@ -43,18 +41,15 @@ export default function CreateExpense () {
     e.preventDefault()
 
     const form = e.target as HTMLFormElement
-    const amount = parseInt(form.amount.value)
-    const description = form.description.value
-    const date = form.date.value
 
     if (!user?.uid) return
 
     const expense: ExpenseType = {
       id: Date.now(),
-      amount,
+      amount: parseInt(form.amount.value),
       category,
-      description,
-      date,
+      description: form.description.value,
+      date: form.date.value,
       uid: user.uid,
     }
 
@@ -79,33 +74,52 @@ export default function CreateExpense () {
           <DialogTitle>Add Expense</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleAddExpense} className='grid gap-4 py-4'>
-          <div>
-            <Label htmlFor='amount' className='text-right'>
-              Amount
-            </Label>
-            <Input
-              id='amount'
-              name='amount'
-              placeholder='0.00'
-              type='number'
-              className='col-span-3'
-              required
-            />
+          <div className='py-8 text-center'>
+            <div className='relative inline-flex items-center'>
+              <input
+                type='text'
+                className='w-48 bg-transparent text-center text-7xl font-bold outline-none'
+                placeholder='0.00'
+              />
+              <span className='text-4xl font-bold'>$</span>
+            </div>
           </div>
           <div>
-            <Label className='text-right'>Category</Label>
+            <Input
+              type='date'
+              defaultValue={today}
+              id='date'
+              name='date'
+              className='flex py-6'
+            />
+          </div>
+          <div className='group relative'>
+            <Input
+              id='description'
+              name='description'
+              className='peer py-6'
+              placeholder=' '
+            />
+            <label
+              className='absolute top-[-11px] translate-x-2 bg-white text-sm text-black/60 transition-all duration-300 peer-placeholder-shown:top-0 peer-placeholder-shown:translate-x-3 peer-placeholder-shown:translate-y-[15px] peer-placeholder-shown:text-sm peer-placeholder-shown:text-black peer-focus:top-[-11px] peer-focus:translate-x-2
+              peer-focus:translate-y-0 peer-focus:text-sm peer-focus:text-black/60'
+              htmlFor='description'
+            >
+              Description
+            </label>
+          </div>
+          <div>
             <Select
               required
               onValueChange={(c) => {
                 setCategory(c)
               }}
             >
-              <SelectTrigger>
-                <SelectValue placeholder='Select category' />
+              <SelectTrigger className='py-6'>
+                <SelectValue placeholder='Category' />
               </SelectTrigger>
               <SelectContent className='w-full'>
                 <SelectGroup>
-                  <SelectLabel>Categories</SelectLabel>
                   {EXPENSE_CATEGORIES.map(category => (
                     <SelectItem key={category.label} value={category.value}>
                       {category.label}
@@ -115,35 +129,11 @@ export default function CreateExpense () {
               </SelectContent>
             </Select>
           </div>
-          <div>
-            <Label htmlFor='description' className='text-right'>
-              Description
-            </Label>
-            <Input
-              placeholder='Enter description'
-              id='description'
-              className='col-span-3'
-              name='description'
-            />
-          </div>
-          <div>
-            <Label htmlFor='date' className='text-right'>
-              Date
-            </Label>
-            <Input
-              type='date'
-              defaultValue={today}
-              id='date'
-              className='col-span-3'
-              name='date'
-            />
-          </div>
-          <DialogFooter className='flex flex-row justify-end gap-2'>
+          <DialogFooter>
             <DialogClose asChild>
-              <Button variant='outline'>Cancel</Button>
-            </DialogClose>
-            <DialogClose asChild>
-              <Button type='submit'>Add Expense</Button>
+              <Button className='w-full p-6 ' type='submit'>
+                Add Expense
+              </Button>
             </DialogClose>
           </DialogFooter>
         </form>
