@@ -77,6 +77,7 @@ export default function CreateExpense () {
           <div className='py-8 text-center'>
             <div className='relative inline-flex items-center'>
               <input
+                name='amount'
                 type='text'
                 className='w-48 bg-transparent text-center text-7xl font-bold outline-none'
                 placeholder='0.00'

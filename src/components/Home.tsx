@@ -18,7 +18,7 @@ export default function Home ({ user }: { user: User }) {
             {getPartOfDay()}, {user.displayName}
           </h2>
         )}
-        <div className='expense-summarize mb-3 grid gap-3 '>
+        <div className='mb-3 grid gap-3 lg:grid-cols-3'>
           <TotalExpense />
           <ExpenseChart />
           <ExpensesCategories />
